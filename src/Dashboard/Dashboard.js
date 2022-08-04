@@ -18,7 +18,12 @@ function Dashboard(){
     }
 
     const handleDelete = (id) =>{
-        console.log('Delete id', id); 
+        setEmployeesData(employeesData.filter((employee)=>{
+            if(employee.empid == id)
+                return false;
+            else 
+                return true;
+       }))
     }
 
     return(
