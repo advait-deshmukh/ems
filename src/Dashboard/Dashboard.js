@@ -13,8 +13,11 @@ function Dashboard(){
     const [selectedEmployee, setSelectedEmployee ] = useState(null)
 
 
+    //handling edit by deleting that entry from the list and adding a new entry
     const handleEdit = (id) =>{
-        console.log('Edit id', id); 
+        const employee = employeesData.filter((employee)=>employee.empid === id)[0]
+        setSelectedEmployee(employee);
+        setIsEditing(true);    //this reders the edit page   
     }
 
     const handleDelete = (id) =>{
