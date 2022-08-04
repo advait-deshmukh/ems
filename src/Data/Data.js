@@ -1,17 +1,17 @@
 const data = [
     {
-        fname : 'fs',
-        lname: 'sca' ,
-        email: 'adv@rvlnd.com',
-        salary: 123456,
-        date: '04/07/2022',
+        empid : 1,
+        empname : 'fs',
+        empmail: 'adv@rvlnd.com',
+        department: 1345,
+        manager: 'Vinay',
     },
     {
-        fname : 'eabs',
-        lname: 'dfbz' ,
-        email: 'aqqwer@trt.com',
-        salary: 67890,
-        date: '29/01/2022',
+        empid : 2,
+        empname : 'q]feribdfn',
+        empmail: 'adv@rsacaccsa.com',
+        department: 987,
+        manager: 'Ravi',
     },
 ]
 

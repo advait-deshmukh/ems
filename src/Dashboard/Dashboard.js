@@ -3,7 +3,6 @@ import Add from './Add.js';
 import Edit from './Edit.js';
 import Header from './Header.js'
 import List from './List.js';
-import Swal from 'sweetalert2';
 import {data} from '../Data/Data.js'
 
 
@@ -14,12 +13,12 @@ function Dashboard(){
     const [selectedEmployee, setSelectedEmployee ] = useState(null)
 
 
-    function handleEdit(id){
-        console.log(id); 
+    const handleEdit = (id) =>{
+        console.log('Edit id', id); 
     }
 
-    function handleDelete(){
-        
+    const handleDelete = (id) =>{
+        console.log('Delete id', id); 
     }
 
     return(
@@ -30,8 +29,8 @@ function Dashboard(){
                     <Header setIsAdding = {setIsAdding}/>
                     <List 
                         employeesData = {employeesData}
-                        handleEdit= {() => handleEdit()}
-                        handleDelete = {()=> handleDelete()}
+                        handleEdit= {handleEdit}
+                        handleDelete = {handleDelete}
                     />
                 </div>
             }
