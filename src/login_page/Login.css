@@ -1,0 +1,17 @@
+.heading{
+    text-align: center;
+}
+
+.footer{
+    text-align: center;
+}
+
+.from{
+    width: 300px;
+}
+
+.ui.primary.button{
+    margin-top: 10px;
+    align-items: center;
+}
+
