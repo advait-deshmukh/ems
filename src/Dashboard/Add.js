@@ -26,9 +26,10 @@ function Add({employeesData, setEmployeesData, setIsAdding}){
 
     return (
         <div>
-            <h1>Add Employee</h1>
 
-            <form onSubmit={(e)=> addEmployee(e)} className = 'short container'>
+            <form onSubmit={(e)=> addEmployee(e)} className = 'small-container'>
+                <h1>Add New Employee</h1>
+
                 <label > Employee Id </label>
                 <input ref = {textinput} type="text" id="id" onChange={e => setEmpId(e.target.value)} required/>
 

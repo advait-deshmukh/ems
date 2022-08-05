@@ -2,6 +2,8 @@ import React from 'react';
 
 function List({employeesData, handleEdit, handleDelete}){
 
+    //Creating a list of JSX elements where each element represents one employee with
+    //buttons to edit and delete the employee
     const renderList = employeesData.map((employee, i)=>
         <tr key = {employee.empid}>
                 <td>{i+1}</td>
@@ -9,13 +11,13 @@ function List({employeesData, handleEdit, handleDelete}){
                 <td>{employee.empmail}</td>
                 <td>{employee.department}</td>
                 <td>{employee.manager}</td>
-                <td className='test-right'>
-                    <button className='button muted-button' onClick ={()=>handleEdit(employee.empid)}>
+                <td className='text-right'>
+                    <button className='btn success' onClick ={()=>handleEdit(employee.empid)}>
                         Edit
                     </button>
                 </td>
-                <td className='test-left'>
-                    <button className='button muted-button' onClick ={()=>handleDelete(employee.empid)}>
+                <td className='text-left'>
+                    <button className='btn danger' onClick ={()=>handleDelete(employee.empid)}>
                         Delete
                     </button>
                 </td>
@@ -39,7 +41,7 @@ function List({employeesData, handleEdit, handleDelete}){
                     (
                         renderList
                     ):(
-                        <th colSpan={8} className='text-center'> No Employees</th>
+                        <th colSpan={7} className='text-center'> No Employees</th>
                     )
                     }
                 </tbody>
