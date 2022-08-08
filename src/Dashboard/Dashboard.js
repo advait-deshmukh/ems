@@ -6,7 +6,7 @@ import List from './List.js';
 import {data} from '../Data/Data.js'
 
 
-function Dashboard(){
+function Dashboard({setLoggedIn}){
     //isAdding and isEditing states control whether to show Dashboard/Add/Edit page
     //employeesData array holds all the employee data and is updated with each add/edit/delete
     //selectedEmployee holds the info about the employee being edited
@@ -44,7 +44,7 @@ function Dashboard(){
             {/* showing the employee list */}
             {!isAdding && !isEditing && 
                 <div>
-                    <Header setIsAdding = {setIsAdding}/>
+                    <Header setIsAdding = {setIsAdding} setLoggedIn = {setLoggedIn}/>
                     <List 
                         employeesData = {employeesData}
                         handleEdit= {handleEdit}

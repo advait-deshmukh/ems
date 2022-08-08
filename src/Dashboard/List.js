@@ -12,12 +12,12 @@ function List({employeesData, handleEdit, handleDelete}){
                 <td>{employee.department}</td>
                 <td>{employee.manager}</td>
                 <td className='text-right'>
-                    <button className='btn success' onClick ={()=>handleEdit(employee.empid)}>
+                    <button className='muted-button' onClick ={()=>handleEdit(employee.empid)}>
                         Edit
                     </button>
                 </td>
                 <td className='text-left'>
-                    <button className='btn danger' onClick ={()=>handleDelete(employee.empid)}>
+                    <button className='muted-button' onClick ={()=>handleDelete(employee.empid)}>
                         Delete
                     </button>
                 </td>

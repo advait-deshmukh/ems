@@ -2,10 +2,9 @@ import React from 'react';
 import {useState, useEffect, useRef} from 'react';
 import './Login.css'
 
-function Login(){
+function Login({setLoggedIn}){
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
-    const [success, setSuccess] =useState(false);
     const [uerrMsg, setUerrMsg] = useState('');
     const [perrMsg, setPerrMsg] = useState('');
 
@@ -30,7 +29,7 @@ function Login(){
             setPerrMsg('');
             setUerrMsg('');
             //assuming the credentials are right
-            setSuccess(true);
+            setLoggedIn(true);
         }
     }
 
@@ -75,58 +74,45 @@ function Login(){
 
 
     return(
-        <> 
-            {success?(
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br/>
-                    <p>
-                        <a href="/">Go to home</a>
-                    </p>
-                </section>
-            ):
-            (
-                <div className = 'LoginPage'>
+        <div className = 'LoginPage'>
 
-                    <h1 className ="heading">Login</h1>
-                    
-                    <form onSubmit={(e)=>onFormSubmit(e)} className="ui form container">
-                        <label>Username: </label>
-                        <input 
-                            id= "username" 
-                            ref = {userRef}
-                            autoComplete = "off"
-                            value = {user}
-                            onChange = {(e) => setUser(e.target.value)}
-                            required
-                        />
-                        <div className="error-text" style={{color:"red"}}>{uerrMsg}</div>
-                        
-                        <label>password: </label>
-                        <input 
-                            type = "password"
-                            id= "password" 
-                            ref = {errRef}
-                            autoComplete = "off"
-                            value = {password}
-                            onChange = {(e) => setPassword(e.target.value)}
-                            required
-                        />
-                         <div className="error-text" style={{color:"red"}}>{perrMsg}</div>
+            <h1 className ="heading">Login</h1>
+            
+            <form onSubmit={(e)=>onFormSubmit(e)} className="ui form container">
+                <label>Username: </label>
+                <input 
+                    id= "username" 
+                    ref = {userRef}
+                    autoComplete = "off"
+                    value = {user}
+                    onChange = {(e) => setUser(e.target.value)}
+                    required
+                />
+                <div className="error-text" style={{color:"red"}}>{uerrMsg}</div>
+                
+                <label>password: </label>
+                <input 
+                    type = "password"
+                    id= "password" 
+                    ref = {errRef}
+                    autoComplete = "off"
+                    value = {password}
+                    onChange = {(e) => setPassword(e.target.value)}
+                    required
+                />
+                    <div className="error-text" style={{color:"red"}}>{perrMsg}</div>
 
-                        <button class="ui primary button" onClick={(e)=>onFormSubmit(e)}>
-                            Log In
-                        </button>
+                <button className="ui primary button" onClick={(e)=>onFormSubmit(e)}>
+                    Log In
+                </button>
 
-                        <p className = 'footer'> 
-                            Create new accout <br/>
-                            <span><a href="/">Sign up</a></span>
-                        </p>
-                    </form>
-                </div>
-            )}
-        </>
-    );
+                <p className = 'footer'> 
+                    Create new accout <br/>
+                    <span><a href="/">Sign up</a></span>
+                </p>
+            </form>
+        </div>
+        );
 }
 
 export default Login; 
