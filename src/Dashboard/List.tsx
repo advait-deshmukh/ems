@@ -1,10 +1,15 @@
-import React from 'react';
+import React,{useState} from 'react';
+import Search from "./Search"
 
 function List({employeesData, handleEdit, handleDelete}){
 
+    const [searchTerm, setSearchTerm] = useState("");
+
     //Creating a list of JSX elements where each element represents one employee with
     //buttons to edit and delete the employee
-    const renderList = employeesData.map((employee, i)=>
+    employeesData = employeesData.filter((employee) => employee.empname.includes(searchTerm))
+
+    let renderList = employeesData.map((employee, i)=>
         <tr key = {employee.empid}>
                 <td>{i+1}</td>
                 <td>{employee.empname}</td>
@@ -23,8 +28,11 @@ function List({employeesData, handleEdit, handleDelete}){
                 </td>
         </tr>) 
 
+
     return (
         <div>
+            <Search  setSearchTerm = {setSearchTerm} searchTerm = {searchTerm}/> 
+
             <table className="striped-table">
                 <thead>
                     <tr>

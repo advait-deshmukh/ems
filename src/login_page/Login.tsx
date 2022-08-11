@@ -65,42 +65,58 @@ function Login({setLoggedIn}){
 
 
     return(
-        <div className = 'LoginPage'>
+        <div style = {{margin : "100px"}} className="ui middle aligned center aligned grid">
+            <div className="six wide column">
+                <h1 className="ui blue header">
+                    Log-in to your account 
+                </h1>
+                <form className="ui mini form" onSubmit={(e)=>onFormSubmit(e)}>
+                <div className="ui stacked segment">
+                    <div className="field">
+                    <div className="ui left icon input">
+                        <i className="user icon"></i>
+                        <input 
+                            type="text" 
+                            name="email" 
+                            placeholder="E-mail address" autoComplete = "off"
+                            value = {user}
+                            onChange = {(e) => setUser(e.target.value)}
+                            required 
+                        />
+                    </div>
+                    </div>
 
-            <h1 className ="heading">Login</h1>
-            
-            <form onSubmit={(e)=>onFormSubmit(e)} className="ui form container">
-                <label>Username: </label>
-                <input 
-                    id= "username" 
-                    autoComplete = "off"
-                    value = {user}
-                    onChange = {(e) => setUser(e.target.value)}
-                    required
-                />
-                <div className="error-text" style={{color:"red"}}>{uerrMsg}</div>
-                
-                <label>password: </label>
-                <input 
-                    type = "password"
-                    id= "password" 
-                    autoComplete = "off"
-                    value = {password}
-                    onChange = {(e) => setPassword(e.target.value)}
-                    required
-                />
+                    <div className="error-text" style={{color:"red"}}>{uerrMsg}</div>
+
+                    <div className="field">
+                    <div className="ui left icon input">
+                        <i className="lock icon"></i>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            placeholder="Password" 
+                            autoComplete = "off"    
+                            value = {password}
+                            onChange = {(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    </div>
+                    
                     <div className="error-text" style={{color:"red"}}>{perrMsg}</div>
 
-                <button className="ui primary button" onClick={(e)=>onFormSubmit(e)}>
-                    Log In
-                </button>
+                    <button className="ui fluid large blue submit button">Login</button>
+                </div>
 
-                <p className = 'footer'> 
-                    Create new accout <br/>
-                    <span><a href="/">Sign up</a></span>
-                </p>
-            </form>
-        </div>
+                <div className="ui error message"></div>
+
+                </form>
+
+                <div className="ui message">
+                New to us? <a href="#">Sign Up</a>
+                </div>
+            </div>
+            </div>
         );
 }
 
