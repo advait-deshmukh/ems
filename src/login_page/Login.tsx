@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect, useRef} from 'react';
+import {useState} from 'react';
 import './Login.css'
 
 function Login({setLoggedIn}){
@@ -11,9 +11,10 @@ function Login({setLoggedIn}){
     
     async function onFormSubmit(e){
         e.preventDefault();
-        //...authentication using the backend...
-       
 
+        //...authentication using the backend, here just calling isValid instead...
+       
+        //calling isValid only after submitting the form
         if(Validate() == true){
             setUser("");
             setPassword('');
@@ -24,40 +25,37 @@ function Login({setLoggedIn}){
         }
     }
 
+    
     function Validate(){
-        let errors = {username : '', password: ''};
         let isValid = true;
      
         if (!user) {
           isValid = false;
-          errors["username"] = "Please enter your username.";
+          setUerrMsg("Please enter your username.");
         }
         
         //Verifying if its a valid email
-        if (typeof user !== "undefined") {
+        else if (typeof user !== "undefined") {
             var pattern = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);                         //email veification
             if (!pattern.test(user)) {
                 isValid = false;
-                errors["username"] = "Please enter valid email address.";
+                setUerrMsg("Please enter valid email address.");
             }
         }
     
         if (!password) {
           isValid = false;
-          errors["password"] = "Please enter your password.";
+          setUerrMsg("Please enter your password.");
         }
     
     
         //password should be longer than 6 characters
-        if (typeof password !== "undefined") {
+        else if (typeof password !== "undefined") {
           if(password.length < 6){
               isValid = false;
-              errors["password"] = "Please add at least 6 charachter.";
+              setUerrMsg("Please add at least 6 charachter.");
           }
         }
-    
-        setPerrMsg(errors.password);
-        setUerrMsg(errors.username)
     
         return isValid;
     }
@@ -75,6 +73,7 @@ function Login({setLoggedIn}){
                     <div className="field">
                     <div className="ui left icon input">
                         <i className="user icon"></i>
+                        {/* input for username */}
                         <input 
                             type="text" 
                             name="email" 
@@ -91,6 +90,7 @@ function Login({setLoggedIn}){
                     <div className="field">
                     <div className="ui left icon input">
                         <i className="lock icon"></i>
+                        {/* input for password */}
                         <input 
                             type="password" 
                             name="password" 

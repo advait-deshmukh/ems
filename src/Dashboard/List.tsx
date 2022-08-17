@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Search from "./Search"
 
-function List({employeesData, handleEdit, handleDelete}){
+function List({employeesData, onEditClick, onDeleteClick}){
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -17,12 +17,12 @@ function List({employeesData, handleEdit, handleDelete}){
                 <td>{employee.department}</td>
                 <td>{employee.manager}</td>
                 <td className='text-right'>
-                    <button className='muted-button' onClick ={()=>handleEdit(employee.empid)}>
+                    <button className='muted-button' onClick ={()=>onEditClick(employee)}>
                         Edit
                     </button>
                 </td>
                 <td className='text-left'>
-                    <button className='muted-button' onClick ={()=>handleDelete(employee.empid)}>
+                    <button className='muted-button' onClick ={()=>onDeleteClick(employee)}>
                         Delete
                     </button>
                 </td>

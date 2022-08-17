@@ -17,14 +17,17 @@ function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }
     //one in employeesData array and updates the state. 
     //By making IsEditing false, the Dashboard page will be rendered again instead of Edit page
     function onFormSubmit(e){
+        
         e.preventDefault();
         const editedEmployee = {empid, empname, empmail, department, manager};
 
         for(let i=0; i<employeesData.length; i++){
             if(employeesData[i].empid === editedEmployee.empid){
-                employeesData.splice(i, 1, editedEmployee)
+                employeesData.splice(i, 1, editedEmployee);
+                break;
             }
         }
+
         //*update the database along with updating the state*//
         setEmployeesData(employeesData);
         setIsEditing(false);

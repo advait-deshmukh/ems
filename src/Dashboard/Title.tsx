@@ -4,7 +4,7 @@ import Search from './Search';
 //renders the title and the Add Employee button on the Dashboard. 
 //With IsAdding set to true on clicking the Add Employee button, the Add page wull be 
 //rendered instead of Dashboard. 
-function Header({setIsAdding, setLoggedIn}){
+function Title({setIsAdding, setLoggedIn}){
 
     return (
         <header>
@@ -24,4 +24,4 @@ function Header({setIsAdding, setLoggedIn}){
 }
 
 
-export default Header;
+export default Title;
