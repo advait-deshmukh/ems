@@ -5,8 +5,7 @@ function List({employeesData, onEditClick, onDeleteClick}){
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    //Creating a list of JSX elements where each element represents one employee with
-    //buttons to edit and delete the employee
+
     employeesData = employeesData.filter((employee) => employee.empname.includes(searchTerm))
 
     let renderList = employeesData.map((employee, i)=>

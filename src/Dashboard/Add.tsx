@@ -2,7 +2,6 @@ import React, {useState, useRef, useEffect} from 'react';
 
 function Add({employeesData, setEmployeesData, setIsAdding}){
 
-    //updating these states after every input change to have controlled input
     const [empid, setEmpId] = useState('');
     const [empname, setempname] = useState('');
     const [empmail, setempmail] = useState('');
