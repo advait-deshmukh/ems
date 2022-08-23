@@ -2,10 +2,7 @@ import React,{useRef, useState, useEffect} from 'react';
 
 function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }){
     
-    //Each input field in the Edit form is updating one of the following states,
-    //which have default values set to selectedEmployee.
-    //These updated values then replace the orignal values from the employeeData array-
-    //-when the form is submitted. If pressed cancel, employeeData is not updated.
+
     const [empid, setEmpId] = useState(selectedEmployee.empid);
     const [empname, setempname] = useState(selectedEmployee.empname);
     const [empmail, setempmail] = useState(selectedEmployee.empmail);
@@ -13,9 +10,6 @@ function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }
     const [manager, setmanager] = useState(selectedEmployee.manager);
 
 
-    //Invokes when the form is submitted. It replaces the old employee with the edited 
-    //one in employeesData array and updates the state. 
-    //By making IsEditing false, the Dashboard page will be rendered again instead of Edit page
     function onFormSubmit(e){
         
         e.preventDefault();
