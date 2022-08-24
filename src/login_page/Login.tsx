@@ -45,7 +45,7 @@ function Login({setLoggedIn}){
     
         if (!password) {
           isValid = false;
-          setUerrMsg("Please enter your password.");
+          setPerrMsg("Please enter your password.");
         }
     
     
@@ -53,7 +53,7 @@ function Login({setLoggedIn}){
         else if (typeof password !== "undefined") {
           if(password.length < 6){
               isValid = false;
-              setUerrMsg("Please add at least 6 charachter.");
+              setPerrMsg("Please add at least 6 charachter.");
           }
         }
     
