@@ -13,14 +13,7 @@ const App : FC = ()=>{
     const [employeesData, setEmployeesData] = useState(data);
     const [selectedEmployee, setSelectedEmployee ] = useState({})
     
-    const onDeleteClick = (emp) =>{
-        setEmployeesData(employeesData.filter((employee)=>{
-            if(employee === emp)
-                return false;
-            else 
-                return true;
-       }))
-    }
+    
 
     return(
         <div>
@@ -33,7 +26,7 @@ const App : FC = ()=>{
                     <Title/>
                     <List 
                         employeesData = {employeesData}
-                        onDeleteClick = {onDeleteClick}
+                        setEmployeesData = {setEmployeesData}
                         setSelectedEmployee = {setSelectedEmployee}
                     />
                 </div>

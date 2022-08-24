@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
-import Search from "./Search"
+import Search from './Search';
 import Link from '../Routing/Link';
 
-function List({employeesData, onDeleteClick, setSelectedEmployee}){
+function List({employeesData,setEmployeesData, setSelectedEmployee}){
 
     const [searchTerm, setSearchTerm] = useState("");
+    //filtering searched employees
     employeesData = employeesData.filter((employee) => employee.empname.includes(searchTerm))
-    
 
+    
     let renderList = employeesData.map((employee, i)=>
         <tr key = {employee.empid}>
                 <td>{i+1}</td>
@@ -21,7 +22,10 @@ function List({employeesData, onDeleteClick, setSelectedEmployee}){
                     </Link>
                 </td>
                 <td className='text-left'>
-                    <button className='muted-button' onClick ={()=>onDeleteClick(employee)}>
+                    <button 
+                        className='muted-button' 
+                        onClick ={()=>setEmployeesData(employeesData.filter((emp)=> emp === employee? false : true))}
+                    >
                         Delete
                     </button>
                 </td>
