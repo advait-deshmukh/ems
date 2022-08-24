@@ -1,8 +1,8 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState} from 'react';
+import Link from '../Routing/Link';
 
-function Add({employeesData, setEmployeesData, setIsAdding}){
+function Add({employeesData, setEmployeesData}){
 
-    //updating these states after every input change to have controlled input
     const [empid, setEmpId] = useState('');
     const [empname, setempname] = useState('');
     const [empmail, setempmail] = useState('');
@@ -16,14 +16,13 @@ function Add({employeesData, setEmployeesData, setIsAdding}){
         employeesData.push(newEmployee);
         //*update the database along with updating the state*//
         setEmployeesData(employeesData);
-        setIsAdding(false);
     }
 
 
     return (
         <div>
 
-            <form onSubmit={(e)=> addEmployee(e)} className = 'small-container'>
+            <form className = 'small-container'>
                 <h1>Add New Employee</h1>
 
                 <label > Employee Id </label>
@@ -41,9 +40,13 @@ function Add({employeesData, setEmployeesData, setIsAdding}){
                 <label > Manager </label>
                 <input type="text" id="Manager" onChange={e => setmanager(e.target.value)} required/>
 
-                <input type="submit" value="Submit"/>
+                <Link href = "/dashboard">
+                    <button onClick={(e)=> addEmployee(e)}> Submit </button>
+                </Link>
                 <br/>
-                <button className="muted-button" onClick={()=> setIsAdding(false)}> Cancel </button>
+                <Link href = "/dashboard">
+                    <button className="muted-button"> Cancel </button>
+                </Link>
             </form>
         </div>
     );

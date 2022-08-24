@@ -1,11 +1,8 @@
-import React,{useRef, useState, useEffect} from 'react';
+import React,{useState} from 'react';
+import Link from '../Routing/Link';
 
-function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }){
+function Edit({employeesData, selectedEmployee, setEmployeesData }){
     
-    //Each input field in the Edit form is updating one of the following states,
-    //which have default values set to selectedEmployee.
-    //These updated values then replace the orignal values from the employeeData array-
-    //-when the form is submitted. If pressed cancel, employeeData is not updated.
     const [empid, setEmpId] = useState(selectedEmployee.empid);
     const [empname, setempname] = useState(selectedEmployee.empname);
     const [empmail, setempmail] = useState(selectedEmployee.empmail);
@@ -13,12 +10,9 @@ function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }
     const [manager, setmanager] = useState(selectedEmployee.manager);
 
 
-    //Invokes when the form is submitted. It replaces the old employee with the edited 
-    //one in employeesData array and updates the state. 
-    //By making IsEditing false, the Dashboard page will be rendered again instead of Edit page
-    function onFormSubmit(e){
+    function onFormSubmit(event){
         
-        e.preventDefault();
+        event.preventDefault();
         const editedEmployee = {empid, empname, empmail, department, manager};
 
         for(let i=0; i<employeesData.length; i++){
@@ -29,14 +23,14 @@ function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }
         }
 
         //*update the database along with updating the state*//
+
         setEmployeesData(employeesData);
-        setIsEditing(false);
     }   
 
 
     return (
         <div>
-            <form onSubmit={(e)=> onFormSubmit(e)} className = 'small-container'>
+            <form onSubmit = {(e) => onFormSubmit(e)} className = 'small-container'>
                 <h1>Edit Employee Information</h1>
                 
             {/* Employee Id not allowed to be edited. */}
@@ -55,9 +49,13 @@ function Edit({employeesData, selectedEmployee, setEmployeesData, setIsEditing }
                 <label > Manager </label>
                 <input value ={manager} id="Manager" onChange={e => setmanager(e.target.value)} required type="text"/>
 
-                <input type="submit" value="Submit"/>
+                <Link href = "/dashboard">
+                    <button onClick={(event)=> onFormSubmit(event)}> Submit </button>
+                </Link>
                 <br/>
-                <button className="muted-button" onClick={()=> setIsEditing(false)}> Cancel </button>
+                <Link href = "/dashboard">
+                    <button className="muted-button"> Cancel </button>
+                </Link>
             </form>
         </div>
     );

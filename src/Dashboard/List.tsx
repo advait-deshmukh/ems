@@ -1,13 +1,12 @@
 import React,{useState} from 'react';
 import Search from "./Search"
+import Link from '../Routing/Link';
 
-function List({employeesData, onEditClick, onDeleteClick}){
+function List({employeesData, onDeleteClick, setSelectedEmployee}){
 
     const [searchTerm, setSearchTerm] = useState("");
-
-    //Creating a list of JSX elements where each element represents one employee with
-    //buttons to edit and delete the employee
     employeesData = employeesData.filter((employee) => employee.empname.includes(searchTerm))
+    
 
     let renderList = employeesData.map((employee, i)=>
         <tr key = {employee.empid}>
@@ -17,9 +16,9 @@ function List({employeesData, onEditClick, onDeleteClick}){
                 <td>{employee.department}</td>
                 <td>{employee.manager}</td>
                 <td className='text-right'>
-                    <button className='muted-button' onClick ={()=>onEditClick(employee)}>
-                        Edit
-                    </button>
+                    <Link href = "/edit">
+                        <button className='muted-button' onClick ={()=>setSelectedEmployee(employee)}> Edit </button>       
+                    </Link>
                 </td>
                 <td className='text-left'>
                     <button className='muted-button' onClick ={()=>onDeleteClick(employee)}>
@@ -49,7 +48,7 @@ function List({employeesData, onEditClick, onDeleteClick}){
                     (
                         renderList
                     ):(
-                        <th colSpan={7} className='text-center'> No Employees</th>
+                        <tr><th colSpan={7} className='text-center'> No Employees</th></tr>
                     )
                     }
                 </tbody>

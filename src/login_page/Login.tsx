@@ -1,66 +1,54 @@
+import { isValidDateValue } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import {useState} from 'react';
+import Link from '../Routing/Link';
 import './Login.css'
 
-function Login({setLoggedIn}){
+function Login(){
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [uerrMsg, setUerrMsg] = useState('');
     const [perrMsg, setPerrMsg] = useState('');
+    const [href, setHref] = useState('/')
 
-    
-    async function onFormSubmit(e){
-        e.preventDefault();
 
-        //...authentication using the backend, here just calling isValid instead...
-       
-        //calling isValid only after submitting the form
-        if(Validate() == true){
-            setUser("");
-            setPassword('');
-            setPerrMsg('');
-            setUerrMsg('');
-            //assuming the credentials are right
-            setLoggedIn(true);
-        }
-    }
-
-    
-    function Validate(){
+    function Validate() {
         let isValid = true;
-     
-        if (!user) {
-          isValid = false;
-          setUerrMsg("Please enter your username.");
-        }
         
         //Verifying if its a valid email
-        else if (typeof user !== "undefined") {
-            var pattern = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);                         //email veification
-            if (!pattern.test(user)) {
-                isValid = false;
-                setUerrMsg("Please enter valid email address.");
-            }
+        var pattern = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);                         //email regex    
+        if (!user) {
+            isValid = false;
+            setUerrMsg("Please enter your username.");
         }
-    
+        else if(!pattern.test(user)) {
+            isValid = false;
+            setUerrMsg("Please enter valid email address.");
+        }
+        else{
+            isValid = true;
+            setUerrMsg("");
+        }
+
+        //password should be longer than 6 characters    
         if (!password) {
-          isValid = false;
-          setUerrMsg("Please enter your password.");
+            isValid = false;
+            setPerrMsg("Please enter your password.");
         }
-    
-    
-        //password should be longer than 6 characters
-        else if (typeof password !== "undefined") {
-          if(password.length < 6){
-              isValid = false;
-              setUerrMsg("Please add at least 6 charachter.");
-          }
+        else if(password.length < 5){
+            isValid = false;
+            setPerrMsg("Please add at least 6 charachter.");
         }
-    
-        return isValid;
+        else{
+            isValid = true;
+            setPerrMsg("");
+        }
+        
+        isValid === true? setHref("/dashboard") : setHref("/");
+        
+        return;
     }
        
-
 
     return(
         <div style = {{margin : "100px"}} className="ui middle aligned center aligned grid">
@@ -68,7 +56,7 @@ function Login({setLoggedIn}){
                 <h1 className="ui blue header">
                     Log-in to your account 
                 </h1>
-                <form className="ui mini form" onSubmit={(e)=>onFormSubmit(e)}>
+                <form className="ui mini form" onSubmit={(e)=>e.preventDefault()}>
                 <div className="ui stacked segment">
                     <div className="field">
                     <div className="ui left icon input">
@@ -79,7 +67,7 @@ function Login({setLoggedIn}){
                             name="email" 
                             placeholder="E-mail address" autoComplete = "off"
                             value = {user}
-                            onChange = {(e) => setUser(e.target.value)}
+                            onChange = {(e) => {setUser(e.target.value);  console.log(user);}}
                             required 
                         />
                     </div>
@@ -97,7 +85,7 @@ function Login({setLoggedIn}){
                             placeholder="Password" 
                             autoComplete = "off"    
                             value = {password}
-                            onChange = {(e) => setPassword(e.target.value)}
+                            onChange = {(e) => {setPassword(e.target.value);  Validate();}}
                             required
                         />
                     </div>
@@ -105,7 +93,9 @@ function Login({setLoggedIn}){
                     
                     <div className="error-text" style={{color:"red"}}>{perrMsg}</div>
 
-                    <button className="ui fluid large blue submit button">Login</button>
+                    <Link href = {href}>
+                        <button className="ui fluid large blue submit button" onClick={event => {event.preventDefault();console.log(href)}}>Login</button>
+                    </Link>
                 </div>
 
                 <div className="ui error message"></div>

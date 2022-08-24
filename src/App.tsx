@@ -1,19 +1,61 @@
 import React,{FC ,useState} from 'react';
 import Login from './login_page/Login'
-import Dashboard from './Dashboard/Dashboard'
+import Add from './Dashboard/Add';
+import Edit from './Dashboard/Edit';
+import Title from './Dashboard/Title'
+import List from './Dashboard/List';
+import {data} from './Data/Data'
+import Route from './Routing/Route';
+
 
 const App : FC = ()=>{
 
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [employeesData, setEmployeesData] = useState(data);
+    const [selectedEmployee, setSelectedEmployee ] = useState({})
+    
+    const onDeleteClick = (emp) =>{
+        setEmployeesData(employeesData.filter((employee)=>{
+            if(employee === emp)
+                return false;
+            else 
+                return true;
+       }))
+    }
 
     return(
         <div>
-            { loggedIn ?
-                <Dashboard setLoggedIn = {setLoggedIn}/>  
-            : 
-                <Login setLoggedIn = {setLoggedIn}/> 
-            }
+            <Route path= "/">
+                <Login /> 
+            </Route>
+
+            <Route path = "/dashboard">
+                <div>
+                    <Title/>
+                    <List 
+                        employeesData = {employeesData}
+                        onDeleteClick = {onDeleteClick}
+                        setSelectedEmployee = {setSelectedEmployee}
+                    />
+                </div>
+            </Route>
+
+            <Route path= "/add">
+                <Add 
+                    employeesData = {employeesData}
+                    setEmployeesData = {setEmployeesData}
+                />
+            </Route>
+
+            <Route path= "/edit">
+                <Edit 
+                    employeesData = {employeesData}
+                    selectedEmployee = {selectedEmployee}
+                    setEmployeesData = {setEmployeesData}
+                /> 
+            </Route>
+
         </div>
+        
     );
 }
 
