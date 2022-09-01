@@ -1,19 +1,54 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import Search from './Search';
 import Link from '../Routing/Link';
+import backend from '../api/backend';
 
-function List({employeesData,setEmployeesData, setSelectedEmployee}){
+function List({credentials, setSelectedEmployee}){
 
-    const [searchTerm, setSearchTerm] = useState("");
-    //filtering searched employees
-    employeesData = employeesData.filter((employee) => employee.empname.includes(searchTerm))
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [employeesData, setEmployeesData] = useState <employeeType[]> ([]);
+
+//make the api call only once when the page renders, and set value of employeesData. This way the page will rerender
+//to show all the available employees. 
+//run useffect for state delete, and change delete when you delete something (think about this later. First get a list and integrate add function)
+//DOES EMPLOYEESDATA have to be a state?
+
+    useEffect(()=>{
+        backend.get("/employee",
+        {
+            headers: {"Authorization" : "Basic Z3JlZW46MjIy"}
+        }).then(
+            (response)=>{
+                console.log(response);
+                setEmployeesData(response.data.data);
+            }
+        ).catch(
+            (error)=>{
+                console.log(error);
+                alert("Data fetching failed. Login again.");
+            } 
+        );
+
+    }, [])
+
+    type employeeType = {
+        empId : number,
+        empName : string,
+        empMail: string,
+        department: string,
+        manager: string
+    }
 
     
-    let renderList = employeesData.map((employee, i)=>
-        <tr key = {employee.empid}>
+    //filtering searched employees
+    const employeesList = employeesData.filter((employee) => employee.empName.includes(searchTerm))
+
+    
+    let renderList = employeesList.map((employee, i)=>
+        <tr key = {employee.empId}>
                 <td>{i+1}</td>
-                <td>{employee.empname}</td>
-                <td>{employee.empmail}</td>
+                <td>{employee.empName}</td>
+                <td>{employee.empMail}</td>
                 <td>{employee.department}</td>
                 <td>{employee.manager}</td>
                 <td className='text-right'>

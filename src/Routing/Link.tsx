@@ -7,8 +7,6 @@ type Props = {
 
 const Link = ({href, children} : Props) => {
 
-    const [url, setUrl] = useState(window.location.pathname)
-
     const onButtonClick = (event) => {
         event.preventDefault();
         //pushState just changes the URL without refreshing the page
@@ -26,3 +24,4 @@ const Link = ({href, children} : Props) => {
 }
 
 export default Link;
+

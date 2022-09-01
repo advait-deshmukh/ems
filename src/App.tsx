@@ -1,49 +1,54 @@
 import React,{FC ,useState} from 'react';
-import Login from './login_page/Login'
+import Login from './login/Login'
 import Add from './Dashboard/Add';
 import Edit from './Dashboard/Edit';
 import Title from './Dashboard/Title'
 import List from './Dashboard/List';
-import {data} from './Data/Data'
 import Route from './Routing/Route';
+import Signup from './login/Signup';
 
 
 const App : FC = ()=>{
 
-    const [employeesData, setEmployeesData] = useState(data);
     const [selectedEmployee, setSelectedEmployee ] = useState({})
+    const [credentials, setCredentials] = useState({username:"", password:""});
     
+    //username and password from login page
+    const getCredentials = (values) => {
+        setCredentials(values)
+    }
     
 
     return(
         <div>
             <Route path= "/">
-                <Login /> 
+                <Login getCredentials = {(v) => getCredentials(v)}/> 
             </Route>
+
+
+            <Route path= "/signup">
+                <Signup /> 
+            </Route>
+
 
             <Route path = "/dashboard">
                 <div>
                     <Title/>
                     <List 
-                        employeesData = {employeesData}
-                        setEmployeesData = {setEmployeesData}
+                        credentials  = {credentials}
                         setSelectedEmployee = {setSelectedEmployee}
                     />
                 </div>
             </Route>
 
+
             <Route path= "/add">
-                <Add 
-                    employeesData = {employeesData}
-                    setEmployeesData = {setEmployeesData}
-                />
+                <Add />
             </Route>
 
             <Route path= "/edit">
                 <Edit 
-                    employeesData = {employeesData}
                     selectedEmployee = {selectedEmployee}
-                    setEmployeesData = {setEmployeesData}
                 /> 
             </Route>
 
