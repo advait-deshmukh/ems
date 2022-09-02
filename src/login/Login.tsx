@@ -8,11 +8,9 @@ type valuesType = {
     password : string
 }
 
-function Login({getCredentials}){
+function Login(){
 
     const onFormSubmit = (values : valuesType) => {
-
-        getCredentials(values);
 
         backend.post("/login",
         {
@@ -22,7 +20,7 @@ function Login({getCredentials}){
             headers: {"Authorization" : "Basic Z3JlZW46MjIy"}
         }).then(
             (response)=>{
-                alert("Login successfull")
+                console.log(response)
                 window.history.pushState({}, "", "/dashboard")
                 const navEvent = new PopStateEvent('popstate');
                 window.dispatchEvent(navEvent);     

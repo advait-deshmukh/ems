@@ -11,18 +11,12 @@ import Signup from './login/Signup';
 const App : FC = ()=>{
 
     const [selectedEmployee, setSelectedEmployee ] = useState({})
-    const [credentials, setCredentials] = useState({username:"", password:""});
-    
-    //username and password from login page
-    const getCredentials = (values) => {
-        setCredentials(values)
-    }
     
 
     return(
         <div>
             <Route path= "/">
-                <Login getCredentials = {(v) => getCredentials(v)}/> 
+                <Login /> 
             </Route>
 
 
@@ -35,7 +29,6 @@ const App : FC = ()=>{
                 <div>
                     <Title/>
                     <List 
-                        credentials  = {credentials}
                         setSelectedEmployee = {setSelectedEmployee}
                     />
                 </div>
