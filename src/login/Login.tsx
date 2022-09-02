@@ -8,19 +8,20 @@ type valuesType = {
     password : string
 }
 
-function Login(){
+function Login({token, setToken}){
 
     const onFormSubmit = (values : valuesType) => {
+        token = window.btoa(values.username + ':' + values.password);
+        setToken(token);
 
         backend.post("/login",
         {
             Username :values.username , Password: values.password 
         }, 
         {
-            headers: {"Authorization" : "Basic Z3JlZW46MjIy"}
+            headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response)=>{
-                console.log(response)
                 window.history.pushState({}, "", "/dashboard")
                 const navEvent = new PopStateEvent('popstate');
                 window.dispatchEvent(navEvent);     

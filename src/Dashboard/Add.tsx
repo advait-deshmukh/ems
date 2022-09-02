@@ -5,7 +5,7 @@ import backend from '../api/backend';
 
 type valuesType = { empName:string, empMail :string, department:string, manager:string }
 
-function Add(){
+function Add({token}){
 
     const onFormSubmit = (values : valuesType) => {
         const input = {
@@ -15,7 +15,7 @@ function Add(){
             manager: values.manager
         }
 
-        backend.post('/employee', input, {headers:{"Authorization" : "Basic Z3JlZW46MjIy"}}).then(
+        backend.post('/employee', input, {headers: {"Authorization" : `Basic ${token}`}}).then(
             (response)=>{
                 alert("Employee added successfully")
                 window.history.pushState({}, "", "/dashboard")

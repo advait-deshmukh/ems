@@ -7,16 +7,23 @@ import List from './Dashboard/List';
 import Route from './Routing/Route';
 import Signup from './login/Signup';
 
-
+type employeeType = {
+    id : number,
+    empName : string,
+    empMail: string,
+    department: string,
+    manager: string
+}
 const App : FC = ()=>{
 
-    const [selectedEmployee, setSelectedEmployee ] = useState({})
+    const [selectedEmployee, setSelectedEmployee ] = useState<employeeType>();
+    const [token, setToken] = useState<string>();
     
 
     return(
         <div>
             <Route path= "/">
-                <Login /> 
+                <Login token={token} setToken = {setToken}/> 
             </Route>
 
 
@@ -27,21 +34,23 @@ const App : FC = ()=>{
 
             <Route path = "/dashboard">
                 <div>
-                    <Title/>
+                    <Title token={token} />
                     <List 
-                        setSelectedEmployee = {setSelectedEmployee}
+                        setSelectedEmployee = {setSelectedEmployee} 
+                        token={token} 
                     />
                 </div>
             </Route>
 
 
             <Route path= "/add">
-                <Add />
+                <Add token={token} />
             </Route>
 
             <Route path= "/edit">
                 <Edit 
                     selectedEmployee = {selectedEmployee}
+                    token={token} 
                 /> 
             </Route>
 

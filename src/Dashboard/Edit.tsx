@@ -5,7 +5,7 @@ import Link from '../Routing/Link';
 
 type valuesType = { empName:string, empMail :string, department:string, manager:string }
 
-function Edit({ selectedEmployee }){
+function Edit({ selectedEmployee, token }){
 
     const onFormSubmit = (values : valuesType) =>{
         const input = {
@@ -16,7 +16,7 @@ function Edit({ selectedEmployee }){
         }
         const id = selectedEmployee.id;
 
-        backend.put(`/employee/${id}`, input, {headers:{"Authorization" : "Basic Z3JlZW46MjIy"}}).then(
+        backend.put(`/employee/${id}`, input, {headers:{"Authorization" : `Basic ${token}`}}).then(
             (response)=>{
                 alert("Employee edited successfully")
                 window.history.pushState({}, "", "/dashboard")

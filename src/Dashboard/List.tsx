@@ -12,7 +12,7 @@ type employeeType = {
 }
 
 
-function List({setSelectedEmployee}){
+function List({setSelectedEmployee, token}){
 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [employeesData, setEmployeesData] = useState <employeeType[]> ([]);
@@ -22,7 +22,7 @@ function List({setSelectedEmployee}){
     useEffect(()=>{
         backend.get("/employee",
         {
-            headers: {"Authorization" : "Basic Z3JlZW46MjIy"}
+            headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response)=>{
                 setEmployeesData(response.data.data);

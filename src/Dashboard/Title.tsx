@@ -3,11 +3,11 @@ import backend from '../api/backend';
 import Link from '../Routing/Link'
 
 
-function Title(){
+function Title({token}){
 
     const handleLogout = () =>{
         backend.get('/logout', {
-            headers: {"Authorization" : "Basic Z3JlZW46MjIy"}
+            headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response) => {
                 alert("Logged out successfully");
