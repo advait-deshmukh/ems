@@ -8,15 +8,19 @@ type props = {
 const Search = ({setSearchTerm, searchTerm}: props) => {
 
     return(
-        <div>
-            <div className="ui icon input right floated">
-                <input 
-                    placeholder="Search..."
-                    value = {searchTerm}
-                    onChange = {(e)=> setSearchTerm(e.target.value)}
-                />
-                <i className="inverted circular search link icon"></i>
+        <div className='ui grid middle aligned'>
+            <div className='four wide column'></div>
+            <div className='eight wide column'>
+                <div className="ui fluid icon input">
+                    <input 
+                        placeholder="Search..."
+                        value = {searchTerm}
+                        onChange = {(e)=> setSearchTerm(e.target.value)}
+                    />
+                    <i className="inverted circular search link icon"></i>
+                </div>
             </div>
+            <div className='four wide column'></div>
         </div>
     )
 }

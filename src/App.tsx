@@ -14,16 +14,21 @@ type employeeType = {
     department: string,
     manager: string
 }
+
 const App : FC = ()=>{
 
     const [selectedEmployee, setSelectedEmployee ] = useState<employeeType>();
     const [token, setToken] = useState<string>();
+    const [logged, setLogged] = useState<boolean>(false);
     
 
     return(
         <div>
             <Route path= "/">
-                <Login token={token} setToken = {setToken}/> 
+                <Login 
+                    token={token} 
+                    setToken = {setToken}   
+                    setLogged = {setLogged}/> 
             </Route>
 
 
@@ -34,10 +39,16 @@ const App : FC = ()=>{
 
             <Route path = "/dashboard">
                 <div>
-                    <Title token={token} />
+                    <Title 
+                        token={token} 
+                        setToken = {setToken}   
+                        logged = {logged}
+                        setLogged = {setLogged}
+                    />
                     <List 
                         setSelectedEmployee = {setSelectedEmployee} 
                         token={token} 
+                        logged = {logged}
                     />
                 </div>
             </Route>
@@ -46,6 +57,7 @@ const App : FC = ()=>{
             <Route path= "/add">
                 <Add token={token} />
             </Route>
+
 
             <Route path= "/edit">
                 <Edit 

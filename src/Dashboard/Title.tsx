@@ -3,14 +3,15 @@ import backend from '../api/backend';
 import Link from '../Routing/Link'
 
 
-function Title({token}){
+function Title({token,setToken, setLogged, logged}){
 
     const handleLogout = () =>{
-        backend.get('/logout', {
+        backend.post('/logout', {}, {
             headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response) => {
-                token ="";
+                setToken("");
+                setLogged(false);
                 alert("Logged out successfully");
                 window.history.pushState({}, "","/")
                 const navEvent = new PopStateEvent('popstate');
@@ -24,20 +25,25 @@ function Title({token}){
 
     } 
 
+    if(logged)
+        return (
+            <header>
+                <div className="ui secondary pointing menu">
+                    <Link href = "/add"> 
+                        <div className="ui active item">Add Employee</div>
+                    </Link>
+                    <div className="right menu">
+                        <a className="ui active item" onClick={() => handleLogout()}>
+                            Logout
+                        </a>
+                    </div>
+                </div>
 
-    return (
-        <header>
-            
-            <div className='text-center '> <h1>Employee Management System</h1> </div>
-
-            <button className='ui button' onClick={() => handleLogout()}> Log out </button>
-
-            <Link href = "/add"> 
-                <button className='fluid ui secondary button'> Add Employee </button>
-            </Link>
-            
-        </header>   
-    );
+                <h1 className='text-center'>Employee Management System</h1> 
+            </header> 
+        );  
+    else
+        return null
 }
 
 

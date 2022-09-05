@@ -12,6 +12,8 @@ const setSelectedEmployee = () => {};
 const selectedEmployee = {id : 1, empName:'a', empMail :'a@b.com', department:'a', manager:'a' };
 const token:string = "";
 const setToken = () => {};
+const logged: boolean = true;
+const setLogged = ()=>{};
 
 
 test('render signup page', ()=> {
@@ -20,12 +22,12 @@ test('render signup page', ()=> {
     expect(headerElement).toBeInTheDocument();
     const formElement = screen.getByRole("textbox");
     expect(formElement).toBeInTheDocument();
-    const buttonElement = screen.getByRole("button");
-    expect(buttonElement).toBeInTheDocument();
+    const buttonElement = screen.getAllByRole("button");
+    expect(buttonElement.length).toBe(2);
 });
 
 test('render login page', ()=>{
-    render(<Login token={token} setToken={setToken}/>)
+    render(<Login token={token} setToken={setToken} setLogged = {setLogged}/>)
     const headerElement = screen.getByRole('heading');
     expect(headerElement).toBeInTheDocument();
     const formElement = screen.getByRole('textbox');
@@ -37,15 +39,17 @@ test('render login page', ()=>{
 })
 
 test('render dashboard title', ()=>{
-    render(<Title token={token}/>)
+    render(<Title token={token} setToken = {setToken} logged = {logged} setLogged = {setLogged}/>)
     const headerElement = screen.getByRole('heading');
-    const buttonElement = screen.getAllByRole('button');
+    const linkElement = screen.getAllByRole('link');
+    const logoutElement = screen.getByText(/logout/i)
     expect(headerElement).toBeInTheDocument();
-    expect(buttonElement.length).toBe(2);
+    expect(linkElement.length).toBe(1);
+    expect(logoutElement).toBeInTheDocument();
 })
 
 test('render employee list',()=>{
-    render(<List setSelectedEmployee={setSelectedEmployee} token={token}/>)
+    render(<List setSelectedEmployee={setSelectedEmployee} token={token} logged = {logged} />)
     const listElement = screen.getByRole('table');
     const SearchBox = screen.getByRole('textbox')
     expect(listElement).toBeInTheDocument();
@@ -56,18 +60,18 @@ test('render Add employee form', ()=>{
     render(<Add token={token}/>);
     const headerElement = screen.getByRole('heading');
     const inputElements = screen.getAllByRole('textbox');
-    const buttonElement = screen.getByRole('button');
+    const buttonElement = screen.getAllByRole('button');
     expect(headerElement).toBeInTheDocument();
     expect(inputElements.length).toBe(4);
-    expect(buttonElement).toBeInTheDocument();
+    expect(buttonElement.length).toBe(2);
 })
 
 test('render Add employee form', ()=>{
     render(<Edit selectedEmployee = {selectedEmployee} token={token}/>);
     const headerElement = screen.getByRole('heading');
     const inputElements = screen.getAllByRole('textbox');
-    const buttonElement = screen.getByRole('button');
+    const buttonElement = screen.getAllByRole('button');
     expect(headerElement).toBeInTheDocument();
     expect(inputElements.length).toBe(4);
-    expect(buttonElement).toBeInTheDocument();
+    expect(buttonElement.length).toBe(2);
 })

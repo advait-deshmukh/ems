@@ -33,7 +33,7 @@ function Add({token}){
 
     return (
         <div className = 'small-container'>        
-            <h1 > Add New Employee </h1>
+            <h2 > Add New Employee </h2>
 
             <Formik
                 initialValues={{empName:'', empMail :'', department:'', manager:''}}
@@ -69,6 +69,9 @@ function Add({token}){
                     />
 
                     <button className='ui secondary button' type="submit">Submit</button>
+                    <Link href = '/dashboard'>                            
+                        <button className='ui button'>Cancel</button>
+                    </Link>
 
                 </Form>
             </Formik>

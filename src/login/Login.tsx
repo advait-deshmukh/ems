@@ -8,7 +8,7 @@ type valuesType = {
     password : string
 }
 
-function Login({token, setToken}){
+function Login({token, setToken, setLogged}){
 
     const onFormSubmit = (values : valuesType) => {
         token = window.btoa(values.username + ':' + values.password);
@@ -22,6 +22,7 @@ function Login({token, setToken}){
             headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response)=>{
+                setLogged(true);
                 window.history.pushState({}, "", "/dashboard")
                 const navEvent = new PopStateEvent('popstate');
                 window.dispatchEvent(navEvent);     
@@ -39,7 +40,7 @@ function Login({token, setToken}){
         <div className="ui middle aligned center aligned grid" style = {{margin : "100px"}}>
             <div className= "six wide column">
 
-                <h1 className="ui blue header"> Log In </h1>
+                <h1 className="ui header"> Log In </h1>
                 
                 <Formik
                     initialValues={{username:'',password: ''}}
@@ -60,13 +61,14 @@ function Login({token, setToken}){
                             placeholder = "Enter password"
                         />
 
-                        <button className="ui primary button" type ="submit"> Submit </button>
+                        <button className="ui secondary button" type ="submit"> Submit </button>
+                        <Link href = '/signup'>
+                            <button className="ui button"> Sign Up </button>
+                        </Link>
                     </Form>
                 </Formik>
             </div>
-            <Link href = '/signup'>
-                <button className="ui button" style={{position:"absolute", top:10, left:50}}> Sign Up </button>
-            </Link>
+            
         </div> 
     );
 }
