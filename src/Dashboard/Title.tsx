@@ -10,6 +10,7 @@ function Title({token}){
             headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response) => {
+                token ="";
                 alert("Logged out successfully");
                 window.history.pushState({}, "","/")
                 const navEvent = new PopStateEvent('popstate');
