@@ -1,18 +1,19 @@
 import React from 'react';
-import {Formik, Field, Form} from 'formik';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 import backend from "../api/backend"
 import Link from '../Routing/Link';
+import * as Yup from 'yup';
 
 type valuesType = {
     username : string,
     password : string
 }
 
-function Login({token, setToken, setLogged}){
+function Login(){
 
     const onFormSubmit = (values : valuesType) => {
-        token = window.btoa(values.username + ':' + values.password);
-        setToken(token);
+        //generating the token here for now, will get it from the backend later
+        const token = window.btoa(values.username + ':' + values.password);
 
         backend.post("/login",
         {
@@ -22,7 +23,7 @@ function Login({token, setToken, setLogged}){
             headers: {"Authorization" : `Basic ${token}`}
         }).then(
             (response)=>{
-                setLogged(true);
+                localStorage.setItem("token", token);
                 window.history.pushState({}, "", "/dashboard")
                 const navEvent = new PopStateEvent('popstate');
                 window.dispatchEvent(navEvent);     
@@ -34,42 +35,53 @@ function Login({token, setToken, setLogged}){
         );
     }                
     
+type errorType = {
+    username : string,
+    password : string
+}
+
+    const validate = Yup.object({
+        username: Yup.string().required('Required'),
+        password : Yup.string().required('Required')
+    })
 
 
-    return (
-        <div className="ui middle aligned center aligned grid" style = {{margin : "100px"}}>
-            <div className= "six wide column">
+    return (       
+        <Formik
+            initialValues={{username:'',password: ''}}
+            onSubmit={(values : valuesType) => onFormSubmit(values)}
+            validationSchema = {validate}
+        >
+            {formik => (
+                <div className="ui middle aligned center aligned grid" style = {{margin : "100px"}}>
+                    <div className= "six wide column">
+                        <h1 className="ui header"> Log In </h1>
+                        <Form>
+                            <Field
+                                id="username"
+                                name="username"
+                                type="text"
+                                placeholder = "Enter username"
+                            />
+                            <ErrorMessage name = 'username'/>
 
-                <h1 className="ui header"> Log In </h1>
-                
-                <Formik
-                    initialValues={{username:'',password: ''}}
-                    onSubmit={(values : valuesType) => onFormSubmit(values)}
-                >
-                    <Form>
-                        <Field
-                            id="username"
-                            name="username"
-                            type="text"
-                            placeholder = "Enter username"
-                        />
+                            <Field 
+                                id="password" 
+                                name= "password" 
+                                type = "password"
+                                placeholder = "Enter password"
+                            />
+                            <ErrorMessage name = 'password'/> <br/>
 
-                        <Field 
-                            id="password" 
-                            name= "password" 
-                            type = "password"
-                            placeholder = "Enter password"
-                        />
-
-                        <button className="ui secondary button" type ="submit"> Submit </button>
-                        <Link href = '/signup'>
-                            <button className="ui button"> Sign Up </button>
-                        </Link>
-                    </Form>
-                </Formik>
-            </div>
-            
-        </div> 
+                            <button className="ui secondary button" type ="submit"> Submit </button>
+                            <Link href = '/signup'>
+                                <button className="ui button"> Sign Up </button>
+                            </Link>
+                        </Form>
+                    </div>
+                </div>
+            )}
+        </Formik>  
     );
 }
 

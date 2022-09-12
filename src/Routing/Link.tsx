@@ -3,9 +3,10 @@ import React,{useState} from 'react'
 type Props = {
     href : string,
     children : JSX.Element
+    className? : string
 };
 
-const Link = ({href, children} : Props) => {
+const Link = ({href, children, className=""} : Props) => {
 
     const onButtonClick = (event) => {
         event.preventDefault();
@@ -17,7 +18,7 @@ const Link = ({href, children} : Props) => {
     }
 
     return (
-        <a href = {href} onClick = {(event)=> onButtonClick(event)}>
+        <a href = {href} onClick = {(event)=> onButtonClick(event)} className = {className}>
             {children}
         </a>
     )
